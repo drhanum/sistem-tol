@@ -1,0 +1,26 @@
+[
+    {
+        "golongan": 1,
+        "nomorKartu": "1231123412341234",
+        "saldo": 90500,
+        "tolMasuk": "Tangerang"
+    },
+    {
+        "golongan": 3,
+        "nomorKartu": "1231123512351235",
+        "saldo": 3000000,
+        "tolMasuk": "Depok"
+    },
+    {
+        "golongan": 2,
+        "nomorKartu": "1231123612361236",
+        "saldo": 320000,
+        "tolMasuk": "Bogor"
+    },
+    {
+        "golongan": 2,
+        "nomorKartu": "1231456723456789",
+        "saldo": 800000,
+        "tolMasuk": "tangerang"
+    }
+]
