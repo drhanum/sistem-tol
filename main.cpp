@@ -84,8 +84,10 @@ int main()
             cout << "- GTTangerang" << endl;
             cout << "- GTBuahBatu" << endl;
             cout << "- GTPondokAren" << endl;
+            cout << "- GTSentul" << endl;
             cout << "- GTBogor" << endl;
             cout << "- GTCiawi" << endl;
+            cout << "- GTJatiluhur" << endl;
             cout << "- GTPadalarang" << endl;
 
             while (true)
@@ -181,8 +183,10 @@ int main()
                 cout << "- GTTangerang" << endl;
                 cout << "- GTBuahBatu" << endl;
                 cout << "- GTPondokAren" << endl;
+                cout << "- GTSentul" << endl;
                 cout << "- GTBogor" << endl;
                 cout << "- GTCiawi" << endl;
+                cout << "- GTJatiluhur" << endl;
                 cout << "- GTPadalarang" << endl;
 
                 while (true)

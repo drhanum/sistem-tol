@@ -57,8 +57,10 @@ bool RuteTol::validTolMasuk(string gerbang)
         "gttangerang",
         "gtbuahbatu",
         "gtpondokaren",
+        "gtsentul",
         "gtbogor",
         "gtciawi",
+        "gtjatiluhur",
         "gtpadalarang"
     };
 
