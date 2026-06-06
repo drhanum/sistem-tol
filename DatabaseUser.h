@@ -16,6 +16,7 @@ class DatabaseUser {
 
         void tambahData(DataUser user);
         bool updateSaldo(string nomorKartu, int saldo);
+        void updateDataSetelahTransaksi(string nomorKartu, int saldoBaru, string tolMasukBaru);
 
     private:
         json bacaData();

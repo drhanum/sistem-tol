@@ -194,12 +194,6 @@ void Tarif::prosesTarif(string nomorKartu, string tolKeluar)
         if (topup > 0)
         {
             saldo += topup;
-
-            db.updateSaldo(
-                nomorKartu,
-                saldo
-            );
-
             cout << "Top-up Berhasil" << endl;
         }
         else
@@ -210,13 +204,14 @@ void Tarif::prosesTarif(string nomorKartu, string tolKeluar)
 
     saldo -= tarif;
 
-    if (db.updateSaldo(
-            nomorKartu,
-            saldo))
-    {
-        cout << "\n===== PEMBAYARAN BERHASIL =====" << endl;
-        cout << "Tarif : " << tarif << endl;
-        cout << "Sisa Saldo : " << saldo << endl;
-    }
+    db.updateDataSetelahTransaksi(
+        nomorKartu,
+        saldo,
+        "none"
+    );
+
+    cout << "\n===== PEMBAYARAN BERHASIL =====" << endl;
+    cout << "Tarif : " << tarif << endl;
+    cout << "Sisa Saldo : " << saldo << endl;
 }
 

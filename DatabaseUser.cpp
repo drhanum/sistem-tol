@@ -79,17 +79,16 @@ bool DatabaseUser::ambilDataKartu(
     return false;
 }
 
-bool DatabaseUser::updateSaldo(
-    string nomorKartu,
-    int saldo)
+bool DatabaseUser::updateSaldo(string nomorKartu, int saldoBaru)
 {
     json data = bacaData();
 
-    for (auto &user : data)
+    for (auto& user : data)
     {
         if (user["nomorKartu"] == nomorKartu)
         {
-            user["saldo"] = saldo;
+            user["saldo"] = saldoBaru;
+            user["tolMasuk"] = "none";
 
             simpanData(data);
             return true;
@@ -99,3 +98,23 @@ bool DatabaseUser::updateSaldo(
     return false;
 }
 
+void DatabaseUser::updateDataSetelahTransaksi(
+    string nomorKartu,
+    int saldoBaru,
+    string tolMasukBaru
+)
+{
+    json data = bacaData();
+
+    for (auto &user : data)
+    {
+        if (user["nomorKartu"] == nomorKartu)
+        {
+            user["saldo"] = saldoBaru;
+            user["tolMasuk"] = tolMasukBaru;
+            break;
+        }
+    }
+
+    simpanData(data);
+}

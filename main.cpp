@@ -142,38 +142,95 @@ int main()
         // KARTU SUDAH TERDAFTAR
         // ==========================
 
-        else
+        else 
         {
-            cout << "\nStatus Kartu : Sudah Terdaftar" << endl;
+            string tolMasuk;
+            int golongan;
+            int saldo;
 
-            string tolKeluar;
+            db.ambilDataKartu(
+                nomorKartu,
+                tolMasuk,
+                golongan,
+                saldo
+            );
 
-            cout << "\n===== TOL KELUAR =====" << endl;
-            cout << "Pilihan : Jakarta | Bandung | Bekasi" << endl;
+            // cout << "\nDEBUG" << endl;
+            // cout << "Nomor Kartu : " << nomorKartu << endl;
+            // cout << "Tol Masuk   : [" << tolMasuk << "]" << endl;
+            // cout << "Golongan    : " << golongan << endl;
+            // cout << "Saldo       : " << saldo << endl;
 
-            while (true)
+            // Jika belum masuk tol
+            if (tolMasuk == "none")
             {
-                cout << "Input Tol Keluar : ";
-                cin >> tolKeluar;
+                cout << "\nStatus Kartu : Sudah Terdaftar" << endl;
+                cout << "Silakan Input Tol Masuk" << endl;
 
-                tolKeluar = toLower(tolKeluar);
+                string tolMasukBaru;
 
-                if (tolKeluar == "jakarta" ||
-                    tolKeluar == "bandung" ||
-                    tolKeluar == "bekasi")
+                cout << "\n===== TOL MASUK =====" << endl;
+                cout << "Pilihan : Tangerang | Depok | Bogor" << endl;
+
+                while (true)
                 {
-                    break;
+                    cout << "Input Tol Masuk : ";
+                    cin >> tolMasukBaru;
+
+                    tolMasukBaru = toLower(tolMasukBaru);
+
+                    if (tolMasukBaru == "tangerang" ||
+                        tolMasukBaru == "depok" ||
+                        tolMasukBaru == "bogor")
+                    {
+                        break;
+                    }
+
+                    cout << "Tol Tidak Tersedia" << endl;
                 }
 
-                cout << "Tol Tidak Tersedia" << endl;
+                db.updateDataSetelahTransaksi(
+                    nomorKartu,
+                    saldo,
+                    tolMasukBaru
+                );
+
+                cout << "\nBerhasil Masuk Tol" << endl;
             }
 
-            transaksi.prosesTarif(
-                nomorKartu,
-                tolKeluar
-            );
+            // Jika sudah masuk tol
+            else
+            {
+                cout << "\nStatus Kartu : Sudah Terdaftar" << endl;
+
+                string tolKeluar;
+
+                cout << "\n===== TOL KELUAR =====" << endl;
+                cout << "Pilihan : Jakarta | Bandung | Bekasi" << endl;
+
+                while (true)
+                {
+                    cout << "Input Tol Keluar : ";
+                    cin >> tolKeluar;
+
+                    tolKeluar = toLower(tolKeluar);
+
+                    if (tolKeluar == "jakarta" ||
+                        tolKeluar == "bandung" ||
+                        tolKeluar == "bekasi")
+                    {
+                        break;
+                    }
+
+                    cout << "Tol Tidak Tersedia" << endl;
+                }
+
+                transaksi.prosesTarif(
+                    nomorKartu,
+                    tolKeluar
+                );
+            }
         }
     }
-
     return 0;
 }
