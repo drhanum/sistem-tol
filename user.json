@@ -14,7 +14,7 @@
     {
         "golongan": 1,
         "nomorKartu": "1231123412341234",
-        "saldo": 133500,
+        "saldo": 93500,
         "tolMasuk": "none"
     },
     {
@@ -27,12 +27,18 @@
         "golongan": 2,
         "nomorKartu": "1231435643564356",
         "saldo": 95000,
-        "tolMasuk": "none"
+        "tolMasuk": "gtbuahbatu"
     },
     {
         "golongan": 1,
         "nomorKartu": "1231456776544567",
         "saldo": 11500,
+        "tolMasuk": "gttangerang"
+    },
+    {
+        "golongan": 1,
+        "nomorKartu": "1231456778901234",
+        "saldo": 10000,
         "tolMasuk": "none"
     }
 ]

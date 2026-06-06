@@ -1,10 +1,12 @@
 #include <iostream>
 #include <algorithm>
+#include <vector>
 
 #include "DataUser.h"
 #include "DatabaseUser.h"
 #include "ValidasiKartu.h"
 #include "Tarif.h"
+#include "RuteTol.h"
 
 using namespace std;
 
@@ -25,6 +27,7 @@ int main()
     DatabaseUser db;
     ValidasiKartu validasi;
     Tarif transaksi;
+    RuteTol rute;
 
     bool running = true;
 
@@ -77,7 +80,13 @@ int main()
             string tolMasuk;
 
             cout << "\n===== TOL MASUK =====" << endl;
-            cout << "Pilihan : Tangerang | Depok | Bogor" << endl;
+            cout << "Pilihan Tol Masuk :" << endl;
+            cout << "- GTTangerang" << endl;
+            cout << "- GTBuahBatu" << endl;
+            cout << "- GTPondokAren" << endl;
+            cout << "- GTBogor" << endl;
+            cout << "- GTCiawi" << endl;
+            cout << "- GTPadalarang" << endl;
 
             while (true)
             {
@@ -86,9 +95,7 @@ int main()
 
                 tolMasuk = toLower(tolMasuk);
 
-                if (tolMasuk == "tangerang" ||
-                    tolMasuk == "depok" ||
-                    tolMasuk == "bogor")
+                if (rute.validTolMasuk(tolMasuk))
                 {
                     break;
                 }
@@ -170,7 +177,13 @@ int main()
                 string tolMasukBaru;
 
                 cout << "\n===== TOL MASUK =====" << endl;
-                cout << "Pilihan : Tangerang | Depok | Bogor" << endl;
+                cout << "Pilihan Tol Masuk :" << endl;
+                cout << "- GTTangerang" << endl;
+                cout << "- GTBuahBatu" << endl;
+                cout << "- GTPondokAren" << endl;
+                cout << "- GTBogor" << endl;
+                cout << "- GTCiawi" << endl;
+                cout << "- GTPadalarang" << endl;
 
                 while (true)
                 {
@@ -179,9 +192,7 @@ int main()
 
                     tolMasukBaru = toLower(tolMasukBaru);
 
-                    if (tolMasukBaru == "tangerang" ||
-                        tolMasukBaru == "depok" ||
-                        tolMasukBaru == "bogor")
+                    if (rute.validTolMasuk(tolMasukBaru))
                     {
                         break;
                     }
@@ -205,8 +216,16 @@ int main()
 
                 string tolKeluar;
 
+                vector<string> pilihan =
+                    rute.getPilihanKeluar(tolMasuk);
+
                 cout << "\n===== TOL KELUAR =====" << endl;
-                cout << "Pilihan : Jakarta | Bandung | Bekasi" << endl;
+                cout << "Pilihan :" << endl;
+
+                for (string gerbang : pilihan)
+                {
+                    cout << "- " << gerbang << endl;
+                }
 
                 while (true)
                 {
@@ -215,19 +234,29 @@ int main()
 
                     tolKeluar = toLower(tolKeluar);
 
-                    if (tolKeluar == "jakarta" ||
-                        tolKeluar == "bandung" ||
-                        tolKeluar == "bekasi")
+                    bool valid = false;
+
+                    for (string gerbang : pilihan)
+                    {
+                        if (tolKeluar == gerbang)
+                        {
+                            valid = true;
+                            break;
+                        }
+                    }
+
+                    if (valid)
                     {
                         break;
                     }
 
                     cout << "Tol Tidak Tersedia" << endl;
+
                 }
 
                 transaksi.prosesTarif(
-                    nomorKartu,
-                    tolKeluar
+                        nomorKartu,
+                        tolKeluar
                 );
             }
         }

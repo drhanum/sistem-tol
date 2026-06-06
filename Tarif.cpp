@@ -1,148 +1,78 @@
 #include "Tarif.h"
+#include "RuteTol.h"
+#include <map>
+#include <cmath>
 
-int Tarif::hitungTarif(string masuk, string keluar, int golongan)
+int Tarif::hitungTarif( string masuk, string keluar, int golongan)
 {
-    if (masuk == "tangerang" && keluar == "jakarta")
+    map<string, int> line1 = {
+        {"gttangerang", 0},
+        {"cawang", 1},
+        {"cibitung", 2},
+        {"gtbuahbatu", 3}
+    };
+
+    map<string, int> line2 = {
+        {"gtpondokaren", 0},
+        {"depok", 1},
+        {"gtsentul", 2},
+        {"gtbogor", 3}
+    };
+
+    map<string, int> line3 = {
+        {"gtciawi", 0},
+        {"cikarang", 1},
+        {"gtjatiluhur", 2},
+        {"gtpadalarang", 3}
+    };
+
+    int jarak = -1;
+
+    if (line1.count(masuk) && line1.count(keluar))
     {
-        if (golongan == 1)
-            return 26000;
-        else if (golongan == 2 || golongan == 3)
-            return 39000;
-        else
-            return 51000;
+        jarak = abs(
+            line1[masuk] -
+            line1[keluar]
+        );
+    }
+    else if (line2.count(masuk) && line2.count(keluar))
+    {
+        jarak = abs(
+            line2[masuk] -
+            line2[keluar]
+        );
+    }
+    else if (line3.count(masuk) && line3.count(keluar))
+    {
+        jarak = abs(
+            line3[masuk] -
+            line3[keluar]
+        );
     }
 
-    else if (masuk == "tangerang" && keluar == "bandung")
+    if (jarak <= 0)
     {
-        if (golongan == 1)
-            return 109500;
-        else if (golongan == 2 || golongan == 3)
-            return 168000;
-        else
-            return 225500;
+        return -1;
     }
 
-    else if (masuk == "tangerang" && keluar == "bekasi")
-    {
-        if (golongan == 1)
-            return 54000;
-        else if (golongan == 2 || golongan == 3)
-            return 81000;
-        else
-            return 106500;
-    }
+    int tarifDasar = 20000 * jarak;
 
-    else if (masuk == "depok" && keluar == "jakarta")
+    switch (golongan)
     {
-        if (golongan == 1)
-            return 32000;
-        else if (golongan == 2 || golongan == 3)
-            return 48000;
-        else
-            return 63500;
-    }
+        case 1:
+            return tarifDasar;
 
-    else if (masuk == "depok" && keluar == "bandung")
-    {
-        if (golongan == 1)
-            return 136500;
-        else if (golongan == 2 || golongan == 3)
-            return 205000;
-        else
-            return 273000;
-    }
+        case 2:
+        case 3:
+            return tarifDasar * 1.5;
 
-    else if (masuk == "depok" && keluar == "bekasi")
-    {
-        if (golongan == 1)
-            return 54000;
-        else if (golongan == 2 || golongan == 3)
-            return 81000;
-        else
-            return 106500;
-    }
+        case 4:
+        case 5:
+            return tarifDasar * 2;
 
-    else if (masuk == "depok" && keluar == "jakarta")
-    {
-        if (golongan == 1)
-            return 32000;
-        else if (golongan == 2 || golongan == 3)
-            return 48000;
-        else
-            return 63500;
+        default:
+            return -1;
     }
-
-    else if (masuk == "depok" && keluar == "bandung")
-    {
-        if (golongan == 1)
-            return 136500;
-        else if (golongan == 2 || golongan == 3)
-            return 205000;
-        else
-            return 273000;
-    }
-
-    else if (masuk == "depok" && keluar == "bekasi")
-    {
-        if (golongan == 1)
-            return 136500;
-        else if (golongan == 2 || golongan == 3)
-            return 205000;
-        else
-            return 273000;
-    }
-
-    else if (masuk == "depok" && keluar == "bekasi")
-    {
-        if (golongan == 1)
-            return 70500;
-        else if (golongan == 2 || golongan == 3)
-            return 106000;
-        else
-            return 141500;
-    }
-
-    else if (masuk == "bogor" && keluar == "jakarta")
-    {
-        if (golongan == 1)
-            return 20500;
-        else if (golongan == 2 || golongan == 3)
-            return 31000;
-        else
-            return 41500;
-    }
-
-    else if (masuk == "bogor" && keluar == "tangerang")
-    {
-        if (golongan == 1)
-            return 20500;
-        else if (golongan == 2 || golongan == 3)
-            return 31000;
-        else
-            return 41500;
-    }
-
-    else if (masuk == "bogor" && keluar == "bandung")
-    {
-        if (golongan == 1)
-            return 118000;
-        else if (golongan == 2 || golongan == 3)
-            return 177500;
-        else
-            return 237500;
-    }
-
-    else if (masuk == "bogor" && keluar == "bekasi")
-    {
-        if (golongan == 1)
-            return 62000;
-        else if (golongan == 2 || golongan == 3)
-            return 93500;
-        else
-            return 125000;
-    }
-
-    return -1;
 }
 
 void Tarif::prosesTarif(string nomorKartu, string tolKeluar)
@@ -160,6 +90,14 @@ void Tarif::prosesTarif(string nomorKartu, string tolKeluar)
             saldo))
     {
         cout << "Kartu Tidak Ditemukan" << endl;
+        return;
+    }
+
+    RuteTol rute;
+
+    if (!rute.cekRute(tolMasuk, tolKeluar))
+    {
+        cout << "Rute Tidak Valid" << endl;
         return;
     }
 
